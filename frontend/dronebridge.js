@@ -225,7 +225,7 @@ function get_esp_chip_model_str(esp_model_index) {
 function get_system_info() {
 	get_json("api/system/info").then(json_data => {
 		console.log("Received settings: " + json_data)
-		document.getElementById("about").innerHTML = "DroneBridge for ESP32 v" + json_data["major_version"] +
+		document.getElementById("about").innerHTML = "Hellfire" + json_data["major_version"] +
 			"." + json_data["minor_version"] + "." + json_data["patch_version"] + " ("+json_data["maturity_version"]+")" +
 			" - esp-idf " + json_data["idf_version"] + " - " + get_esp_chip_model_str(json_data["esp_chip_model"])
 		document.getElementById("esp_mac").innerHTML = json_data["esp_mac"]
@@ -246,9 +246,9 @@ function get_system_info() {
 
 function update_conn_status() {
 	if (conn_status)
-		document.getElementById("web_conn_status").innerHTML = "<span class=\"dot_green\"></span> connected to ESP32"
+		document.getElementById("web_conn_status").innerHTML = "<span class=\"dot_green\"></span> connected"
 	else {
-		document.getElementById("web_conn_status").innerHTML = "<span class=\"dot_red\"></span> disconnected from ESP32"
+		document.getElementById("web_conn_status").innerHTML = "<span class=\"dot_red\"></span> disconnected"
 		document.getElementById("current_client_ip").innerHTML = ""
 	}
 	if (conn_status !== old_conn_status) {

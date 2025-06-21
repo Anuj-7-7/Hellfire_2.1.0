@@ -201,13 +201,13 @@ void start_mdns_service() {
         printf("MDNS Init failed: %d\n", err);
         return;
     }
-    ESP_ERROR_CHECK(mdns_hostname_set("dronebridge"));
-    ESP_ERROR_CHECK(mdns_instance_name_set("DroneBridge for ESP32"));
+    ESP_ERROR_CHECK(mdns_hostname_set("hellfire"));
+    ESP_ERROR_CHECK(mdns_instance_name_set("hellfire"));
 
     ESP_ERROR_CHECK(mdns_service_add(NULL, "_http", "_tcp", 80, NULL, 0));
     ESP_ERROR_CHECK(mdns_service_add(NULL, "_db_proxy", "_tcp", APP_PORT_PROXY, NULL, 0));
     ESP_ERROR_CHECK(mdns_service_add(NULL, "_db_comm", "_tcp", APP_PORT_COMM, NULL, 0));
-    ESP_ERROR_CHECK(mdns_service_instance_name_set("_http", "_tcp", "DroneBridge for ESP32"));
+    ESP_ERROR_CHECK(mdns_service_instance_name_set("_http", "_tcp", "hellfire"));
     ESP_LOGI(TAG, "MDNS Service started!");
 }
 
@@ -284,8 +284,8 @@ void db_init_wifi_apmode(int wifi_mode) {
 
     wifi_config_t wifi_config = {
             .ap = {
-                    .ssid = "DroneBridge ESP32 Init Error",
-                    .password = "dronebridge",
+                    .ssid = "hellfire Init Error",
+                    .password = "hellfire",
                     .ssid_len = 0,
                     .authmode = WIFI_AUTH_WPA2_PSK,
                     .channel = db_param_channel.value.db_param_u8.value,
@@ -376,8 +376,8 @@ int db_init_wifi_clientmode() {
 
     wifi_config_t wifi_config = {
             .sta = {
-                    .ssid = "DroneBridge_ESP32_Init",
-                    .password = "dronebridge",
+                    .ssid = "hellfire_Init",
+                    .password = "hellfire",
                     .threshold.authmode = WIFI_AUTH_WEP
             },
     };
@@ -619,7 +619,7 @@ void db_read_settings_nvs() {
  * @param arg
  */
 void short_press_callback(void *arg, void *usr_data) {
-    ESP_LOGW(TAG, "Short press detected setting wifi mode to access point with password: dronebridge");
+    ESP_LOGW(TAG, "Short press detected setting wifi mode to access point with password: hellfire");
     DB_RADIO_MODE_DESIGNATED = DB_WIFI_MODE_AP;  // do not directly change DB_PARAM_RADIO_MODE since it is not safe and constantly processed by other tasks. Save settings and reboot will assign DB_RADIO_MODE_DESIGNATED to DB_PARAM_RADIO_MODE.
     db_param_set_to_default(&db_param_ssid);
     db_param_set_to_default(&db_param_pass);
@@ -742,7 +742,7 @@ void app_main() {
         // no need to start these services - won`t be available anyway - safe the resources
         start_mdns_service();
         netbiosns_init();
-        netbiosns_set_name("dronebridge");
+        netbiosns_set_name("hellfire");
     }
     ESP_ERROR_CHECK(init_fs());
     db_start_control_module();
